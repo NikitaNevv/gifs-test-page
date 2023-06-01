@@ -1,17 +1,15 @@
 <template>
     <v-row>
         <v-col
-            v-for="n in 1"
-            :key="n"
-            cols="10"
-            sm="3"
+            v-for="gif in gifStore.gifs"
+            :key="gif.id"
+            cols="4"
+            sm="4"
         >
             <Gif
                 class="ma-2 pa-2"
                 aspect-ratio="1"
-                v-for="gif in gifStore.getModifyGif"
-                :key="gif.id"
-                :gif="gif"
+                :info="gif"
             >
             </Gif>
         </v-col>
@@ -28,8 +26,6 @@ import { onMounted } from 'vue';
 
  onMounted(async () => {
      await gifStore.apiGetGifs()
-
-     console.log(gifStore.getModifyGif)
 })
 
 </script>
