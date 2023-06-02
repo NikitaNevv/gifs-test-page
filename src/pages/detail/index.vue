@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <router-link :to="{name: 'PageHome'}">Go back</router-link>
+        <router-link :to="{ name: 'PageHome' }">Go back</router-link>
 
         <v-row class="mt-10">
             <v-col>
@@ -9,9 +9,10 @@
                 <span class="text-subtitle-1">{{ info.title }}</span>
                 <v-spacer/>
                 <router-link :to="{
-                name: 'PageGifOwner',
-                params: {id: info.id, username: info.username}
-            }">
+                    name: 'PageGifOwner',
+                    params: {id: info.id, username: info.username}
+                }"
+            >
                     Author: {{ info.username }}
                 </router-link>
             </v-col>
@@ -26,21 +27,14 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
+import { computed, onMounted, reactive, watch  } from 'vue';
 import { useGifsStore } from '../../store';
 
 const gifsStore = useGifsStore()
 const route = useRoute()
-
 const info = computed(() => {
-    const userObjectInfo = gifsStore.gifs.find(item => item.id === route.params.id)
-
-    if (userObjectInfo.username === '') {
-        return 'No username'
-    }
-
-    return userObjectInfo;
+    return gifsStore.gifs.find(item => item.id === route.params.id)
 })
 
 onMounted(async() => {

@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, watch } from 'vue';
+import {reactive, watch } from 'vue';
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
