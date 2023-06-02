@@ -3,13 +3,16 @@
         <v-app-bar class="px-10 bg-orange-darken-3">
             <v-row align="center" justify="space-between">
                 <v-col cols="1" class="flex justify-start">
-                    <router-link :to="{name: 'PageDetail', params: {id: data.currentUrl}}">
+                    <v-img v-if="data.currentUrl === '/'" height="40" width="40" src="https://png.pngtree.com/png-clipart/20200727/original/pngtree-mountain-landscape-logo-design-hiking-travel-and-adventure-concept-design-png-image_5177367.jpg"/>
+
+                    <router-link v-else :to="{name: 'PageHome'}">
                         <v-img height="40" width="40" src="https://png.pngtree.com/png-clipart/20200727/original/pngtree-mountain-landscape-logo-design-hiking-travel-and-adventure-concept-design-png-image_5177367.jpg"/>
                     </router-link>
                 </v-col>
 
                 <v-col cols="8">
                     <v-text-field
+                        v-if="data.currentUrl === '/'"
                         density="compact"
                         variant="solo"
                         label="Search"
@@ -39,7 +42,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 watch(() => route.path, (newPath: any) => {
-    data.currentUrl = newPath.split('/')[2]
+    data.currentUrl = newPath
 })
 
 interface data {

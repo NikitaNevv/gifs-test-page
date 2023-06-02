@@ -27,7 +27,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { computed, onMounted, reactive, watch  } from 'vue';
 import { useGifsStore } from '../../store';
 
