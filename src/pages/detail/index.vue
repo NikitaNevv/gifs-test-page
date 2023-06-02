@@ -1,42 +1,55 @@
 <template>
-  <v-container>
-    <v-col>
-      <v-row>
-        <v-col>
-          <v-img width="400" height="400" :src="info.images.original.url"/>
-          <v-spacer/>
-          <span class="text-subtitle-1">{{ info.title }}</span>
-        </v-col>
-      </v-row>
-    </v-col>
-  </v-container>
+    <v-container>
+        <router-link :to="{name: 'PageHome'}">Go back</router-link>
+
+        <v-row class="mt-10">
+            <v-col>
+                <v-img width="600" height="600" :src="info.images.original.url"/>
+                <v-spacer/>
+                <span class="text-subtitle-1">{{ info.title }}</span>
+                <v-spacer/>
+                <router-link :to="{
+                name: 'PageGifOwner',
+                params: {id: info.id, username: info.username}
+            }">
+                    Author: {{ info.username }}
+                </router-link>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script lang="ts">
 export default {
-  name: 'PageDetail'
+    name: 'PageDetail'
 }
 </script>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue';
 import { useGifsStore } from '../../store';
 
 const gifsStore = useGifsStore()
-const router = useRouter()
 const route = useRoute()
 
 const info = computed(() => {
-  return gifsStore.gifs.find(item => item.id === route.params.id)
+    const userObjectInfo = gifsStore.gifs.find(item => item.id === route.params.id)
+
+    if (userObjectInfo.username === '') {
+        return 'No username'
+    }
+
+    return userObjectInfo;
 })
 
 onMounted(async() => {
-  if (!gifsStore.gifs.length) {
-    await gifsStore.apiGetGifs()
-  }
-})
+    if (!gifsStore.gifs.length) {
+        await gifsStore.apiGetGifs()
+    }
 
+    console.log(gifsStore.gifs)
+})
 </script>
 
 <style lang="scss">

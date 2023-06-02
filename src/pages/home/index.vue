@@ -33,10 +33,9 @@ export default {
 
 <script setup lang="ts">
 import {useGifsStore} from '../../store/index.ts'
+import { onMounted } from 'vue';
 
 const gifStore = useGifsStore()
-
-import { onMounted } from 'vue';
 
 onMounted(async () => {
   await gifStore.apiGetGifs()

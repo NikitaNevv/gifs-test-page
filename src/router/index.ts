@@ -1,9 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
-//@ts-ignore
 import PageHome from '../pages/home/index.vue'
-//@ts-ignore
-
 import PageDetail from '../pages/detail/index.vue'
+import PageGifOwner from '../pages/gifOwner/index.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -17,6 +15,11 @@ const router = createRouter({
             path: '/detail/:id',
             name: 'PageDetail',
             component: PageDetail,
+        },
+        {
+            path: '/detail/:id/:username',
+            name: 'PageGifOwner',
+            component: PageGifOwner,
         }
     ]
 })

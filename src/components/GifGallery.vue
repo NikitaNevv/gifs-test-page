@@ -27,7 +27,6 @@ import { onMounted } from 'vue';
  onMounted(async () => {
      await gifStore.apiGetGifs()
 })
-
 </script>
 
 <style lang="scss" scoped>
