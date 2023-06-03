@@ -48,14 +48,9 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { useGifsStore } from '../../store/index.ts'
 
 const gifStore = useGifsStore()
-
-onMounted(async() => {
-    await gifStore.apiGetGifs()
-})
 </script>
 
 <style scoped>

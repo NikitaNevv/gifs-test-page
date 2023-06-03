@@ -6,20 +6,25 @@
             <v-col>
                 <v-img width="600" height="600" :src="info.images.original.url"/>
                 <v-spacer/>
+
                 <span class="text-subtitle-1">{{ info.title }}</span>
                 <v-spacer/>
+
                 <router-link
                     v-if="info.username"
                     :to="{
                         name: 'PageGifOwner',
                         params: {id: info.id, username: info.username}
                     }"
-            >
-                    Author: {{ info.username}}
+                >
+                    Author: {{ info.username }}
                 </router-link>
+
                 <span v-else>Unknown author</span>
             </v-col>
         </v-row>
+
+        <ComponentSlider class="mt-15"/>
     </v-container>
 </template>
 
@@ -33,6 +38,7 @@ export default {
 import { useRoute } from 'vue-router'
 import { computed, onMounted } from 'vue';
 import { useGifsStore } from '../../store';
+import ComponentSlider from '../../components/slider/index.vue'
 
 const gifsStore = useGifsStore()
 const route = useRoute()

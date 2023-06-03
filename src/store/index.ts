@@ -22,7 +22,6 @@ export const useGifsStore = defineStore('gifs', {
     actions: {
         async apiGetGifs() {
             const res = await getGifs(this.offset)
-            console.log(res);
 
             this.gifs.push(...res.data)
             this.offset += 12

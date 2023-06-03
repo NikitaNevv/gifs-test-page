@@ -32,6 +32,7 @@
         </div>
 
         <v-btn
+            class="add-gif-btn"
             v-if="data.currentUrl === '/' || data.currentUrl === ''"
             @click="gifsStore.apiGetGifs"
         >
@@ -72,14 +73,30 @@ const addValue = () => {
     gifsStore.inputVal = inputValue.value;
 }
 
+const handleVisibilityChange =  async (entries) => {
+    await entries.forEach(entry => {
+        if (entry.isIntersecting) {
+             gifsStore.apiGetGifs()
+        }
+    });
+}
 
+async function getGifs() {
+}
 
-// window.addEventListener('scroll', async() => {
-//     let bottomOfWindow = (Math.floor(document.documentElement.scrollTop) + window.innerHeight) === document.documentElement.offsetHeight;
-//     if (bottomOfWindow) {
-//         await gifsStore.apiGetGifs()
-//     }
-// })
+onMounted(() => {
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0
+    };
+
+    const observer = new IntersectionObserver(handleVisibilityChange, options);
+
+    const targetElement = document.querySelector('.add-gif-btn');
+
+    observer.observe(targetElement);
+})
 </script>
 
 <style scoped>
