@@ -5,17 +5,27 @@ export const useGifsStore = defineStore('gifs', {
     state: () => {
         return {
             gifs: [],
+            inputVal: '',
+            offset: 0,
         }
     },
 
-    getters: {},
+    getters: {
+        getMatchedGifs: (state) => {
+            return state.gifs.filter(item => {
+                if (!item.title) return ''
+                return (item.title.toLowerCase().indexOf(state.inputVal.toLowerCase()) != -1)
+            })
+        }
+    },
 
     actions: {
         async apiGetGifs() {
-            const res = await getGifs()
+            const res = await getGifs(this.offset)
             console.log(res);
 
-            this.gifs = res.data
+            this.gifs.push(...res.data)
+            this.offset += 12
         },
     }
 })

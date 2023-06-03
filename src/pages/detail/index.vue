@@ -8,13 +8,16 @@
                 <v-spacer/>
                 <span class="text-subtitle-1">{{ info.title }}</span>
                 <v-spacer/>
-                <router-link :to="{
-                    name: 'PageGifOwner',
-                    params: {id: info.id, username: info.username}
-                }"
+                <router-link
+                    v-if="info.username"
+                    :to="{
+                        name: 'PageGifOwner',
+                        params: {id: info.id, username: info.username}
+                    }"
             >
-                    Author: {{ info.username }}
+                    Author: {{ info.username}}
                 </router-link>
+                <span v-else>Unknown author</span>
             </v-col>
         </v-row>
     </v-container>
@@ -28,7 +31,7 @@ export default {
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { computed, onMounted, reactive, watch  } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useGifsStore } from '../../store';
 
 const gifsStore = useGifsStore()

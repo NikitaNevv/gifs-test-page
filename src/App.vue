@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <v-app class="main-cont">
         <v-app-bar class="px-10 bg-orange-darken-3">
             <v-row align="center" justify="space-between">
                 <v-col cols="1" class="flex justify-start">
@@ -12,22 +12,31 @@
 
                 <v-col cols="8">
                     <v-text-field
-                        v-if="data.currentUrl === '/'"
+                        v-if="data.currentUrl === '/' || data.currentUrl === ''"
                         density="compact"
                         variant="solo"
                         label="Search"
                         append-inner-icon="mdi-magnify"
                         single-line
                         hide-details
-                        :v-model="data.searchVal"
+                        v-model="inputValue"
+                        @input="addValue"
                     />
                 </v-col>
+
             </v-row>
         </v-app-bar>
 
         <div class="px-10 pt-16">
             <router-view/>
         </div>
+
+        <v-btn
+            v-if="data.currentUrl === '/' || data.currentUrl === ''"
+            @click="gifsStore.apiGetGifs"
+        >
+            add gifs
+        </v-btn>
 
         <v-footer class="bg-orange-darken-3 mt-10">
             2023
@@ -36,9 +45,11 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, watch } from 'vue';
+import { reactive, watch, ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router'
+import { useGifsStore } from './store/index.ts';
 
+const gifsStore = useGifsStore()
 const route = useRoute()
 
 watch(() => route.path, (newPath: any) => {
@@ -52,14 +63,24 @@ interface data {
 
 const data = reactive({
     searchVal: '',
-    currentUrl: route.params
+    currentUrl: ''
 })
+
+const inputValue = ref('')
+
+const addValue = () => {
+    gifsStore.inputVal = inputValue.value;
+}
+
+
+
+// window.addEventListener('scroll', async() => {
+//     let bottomOfWindow = (Math.floor(document.documentElement.scrollTop) + window.innerHeight) === document.documentElement.offsetHeight;
+//     if (bottomOfWindow) {
+//         await gifsStore.apiGetGifs()
+//     }
+// })
 </script>
 
 <style scoped>
-.logo {
-    width: 200px;
-    height: 200px;
-    margin: 20px;
-}
 </style>
