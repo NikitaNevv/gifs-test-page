@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import PageHome from '../pages/home/index.vue'
 import PageDetail from '../pages/detail/index.vue'
 import PageGifOwner from '../pages/gifOwner/index.vue'

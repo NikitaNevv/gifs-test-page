@@ -39,8 +39,4 @@ export default {name: 'ComponentSlider'}
 import { useGifsStore } from '../../store/index.ts'
 
 const gifStore = useGifsStore()
-
 </script>
-
-<style scoped>
-</style>

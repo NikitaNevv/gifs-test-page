@@ -1,5 +1,5 @@
 <template>
-    <v-app class="main-cont">
+    <v-app>
         <v-app-bar class="px-10 bg-orange-darken-3">
             <v-row align="center" justify="space-between">
                 <v-col cols="1" class="flex justify-start">
@@ -23,7 +23,6 @@
                         @input="addValue"
                     />
                 </v-col>
-
             </v-row>
         </v-app-bar>
 
@@ -73,22 +72,16 @@ const addValue = () => {
     gifsStore.inputVal = inputValue.value;
 }
 
-const handleVisibilityChange =  async (entries) => {
+const handleVisibilityChange = async (entries) => {
     await entries.forEach(entry => {
         if (entry.isIntersecting) {
-             gifsStore.apiGetGifs()
+            gifsStore.apiGetGifs()
         }
     });
 }
 
-async function getGifs() {
-}
-
 onMounted(() => {
     const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0
     };
 
     const observer = new IntersectionObserver(handleVisibilityChange, options);
@@ -98,6 +91,3 @@ onMounted(() => {
     observer.observe(targetElement);
 })
 </script>
-
-<style scoped>
-</style>
