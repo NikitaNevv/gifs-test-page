@@ -43,6 +43,7 @@ import ComponentSlider from '../../components/slider/index.vue'
 const gifsStore = useGifsStore()
 const route = useRoute()
 const info = computed(() => {
+    //@ts-ignore
     const gifObject = gifsStore.gifs.find(item => item.id === route.params.id);
 
     data.title = gifObject.title;
