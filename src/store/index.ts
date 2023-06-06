@@ -11,8 +11,8 @@ export const useGifsStore = defineStore('gifs', {
     },
 
     getters: {
-        getMatchedGifs: (state): object => {
-            return state.gifs.filter((item: object) => {
+        getMatchedGifs: (state) => {
+            return state.gifs.filter((item) => {
                 if (!item.title) return ''
                 return item.title.toLowerCase().indexOf(state.inputVal.toLowerCase()) != -1
             })
