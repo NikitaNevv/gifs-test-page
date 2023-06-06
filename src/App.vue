@@ -52,7 +52,7 @@ import { useGifsStore } from './store/index.ts';
 const gifsStore = useGifsStore()
 const route = useRoute()
 
-watch(() => route.path, (newPath: any) => {
+watch(() => route.path, (newPath) => {
     data.currentUrl = newPath
 })
 
