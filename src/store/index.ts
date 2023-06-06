@@ -1,34 +1,31 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 import { getGifs } from '../api/gifs.ts'
 
 export const useGifsStore = defineStore('gifs', {
     state: () => {
         return {
-            gifs: []
+            gifs: [] as object[],
+            inputVal: '' as string,
+            offset: 0 as number,
         }
     },
 
     getters: {
-        getModifyGif: (state) => {
-            const arr = []
-            for (const key in state.gifs) {
-                arr.push({
-                    id: key,
-                    url: key,
-                })
-            }
-
-            return arr;
+        getMatchedGifs: (state): object => {
+            return state.gifs.filter((item: object): boolean | string => {
+                if (!item.title) return ''
+                return item.title.toLowerCase().indexOf(state.inputVal.toLowerCase()) != -1
+            })
         }
     },
 
     actions: {
-        async apiGetGifs(locale?: string) {
-            const res = await getGifs()
-            if (res.success) {
-                this.gifs = res.data
-                return res
+        async apiGetGifs() {
+            const res = await getGifs(this.offset)
+            if ('data' in res) {
+                this.gifs.push(...res.data)
             }
+            this.offset += 12
         },
     }
 })
